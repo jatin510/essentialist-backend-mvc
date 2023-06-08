@@ -1,19 +1,39 @@
-import express from 'express';
-import { userRoute } from './route/user';
+import mongoose from 'mongoose';
+import { config } from './config';
+import app from './app';
+import http from 'http';
 
-const app = express();
+let server: http.Server;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const port = process.env.PORT || 3000;
-
-app.get('/health', (req, res) => {
-  res.json({ ok: true });
+mongoose.connect(config.mongoUrl).then(() => {
+  console.log('Connected to MongoDB');
+  server = app.listen(config.port, () => {
+    console.log(`Listening to port ${config.port}`);
+  });
 });
 
-app.use('/user', userRoute);
+const exitHandler = () => {
+  if (server) {
+    server.close(() => {
+      console.log('Server closed');
+      process.exit(1);
+    });
+  } else {
+    process.exit(1);
+  }
+};
 
-app.listen(port, () => {
-  console.log('listening on port ' + port);
+const unexpectedErrorHandler = (error: any) => {
+  console.error(error);
+  exitHandler();
+};
+
+process.on('uncaughtException', unexpectedErrorHandler);
+process.on('unhandledRejection', unexpectedErrorHandler);
+
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received');
+  if (server) {
+    server.close();
+  }
 });
