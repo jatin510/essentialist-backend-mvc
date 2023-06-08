@@ -51,6 +51,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "jest-cucumber": "^3.0.1",
+    "joi": "^17.9.2",
     "mongoose": "^7.2.2"
   }
 }
