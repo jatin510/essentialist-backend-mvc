@@ -5,7 +5,8 @@ import { isValidObjectId } from 'mongoose';
 const editUserSchema = Joi.object().keys({
   id: Joi.custom(isValidObjectId).required(),
   username: Joi.string(),
-  age: Joi.number().required(),
+  age: Joi.number(),
+  password: Joi.string(),
 });
 
 export const validateEditUser = (
