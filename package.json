@@ -17,7 +17,9 @@
     "prettier-watch:darwin:linux": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
     "prettier-watch:default": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
     "test": "jest",
-    "test:dev": "jest --watchAll"
+    "test:dev": "jest --watchAll",
+    "test:infra": "jest -c jest.infra.config.js",
+    "test:infra:dev": "jest -c jest.infra.config.js --watchAll"
   },
   "husky": {
     "hooks": {
