@@ -1,0 +1,25 @@
+version: '3'
+services:
+  nodejs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb
+    ports:
+      - '3000:3000'
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017
+      - SERVER_PORT=3000
+    networks:
+      - node-webapp-network
+      
+  mongodb:
+    image: mongo
+    ports:
+      - '27017:27017'
+    networks:
+      - node-webapp-network
+
+networks:
+  node-webapp-network:

@@ -1,5 +1,5 @@
 export const config = {
-  mongoUrl: 'mongodb://localhost:27017/users',
+  mongoUrl: process.env.MONGODB_URI || 'mongodb://mongodb:27017/',
   mongoDatabase: '',
-  port: 3000,
+  port: process.env.SERVER_PORT || 3000,
 };
