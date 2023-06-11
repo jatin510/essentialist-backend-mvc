@@ -50,7 +50,7 @@ export const editUser = async (req: Request, res: Response) => {
       { username, password, age },
       { new: true },
     );
-    return res.status(201).json({ ok: true, data: user });
+    return res.status(200).json({ ok: true, data: user });
   } catch (error) {
     return res.status(400).json({ ok: false, error: error });
   }
