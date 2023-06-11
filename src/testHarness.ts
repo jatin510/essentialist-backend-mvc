@@ -1,6 +1,7 @@
 import { Application } from 'express';
 import http from 'http';
 import { MongoDB } from './mongoDB';
+import { resetDatabase } from './scripts/resetDatabase';
 
 interface ServerConfig {
   mongoUrl: string;
@@ -28,6 +29,8 @@ export class TestHarness {
   async start() {
     // start database
     await this.mongo.start();
+
+    await resetDatabase(this.mongo);
 
     // start express instance
     this.expressInstance = this.express.listen(this.serverConfig.port);
