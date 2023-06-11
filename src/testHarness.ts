@@ -35,6 +35,8 @@ export class TestHarness {
 
   async stop() {
     // stop the database
+    await this.mongo.stop();
+
     // stop the server
     this.expressInstance?.close();
   }

@@ -5,13 +5,10 @@ import { TestHarness } from './testHarness';
 import { MongoDB } from './mongoDB';
 
 describe('e2e', () => {
-  let testHarness: TestHarness;
+  const mongo = new MongoDB(config);
+  const testHarness: TestHarness = new TestHarness(app, mongo, config);
 
   beforeAll(async () => {
-    const mongo = new MongoDB(config);
-
-    testHarness = new TestHarness(app, mongo, config);
-
     await testHarness.start();
   });
 
