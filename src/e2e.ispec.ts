@@ -26,4 +26,25 @@ describe('e2e', () => {
       expect(response.body.ok).toEqual(true);
     });
   });
+
+  describe('api /user', function () {
+    it('create user post api', async function () {
+      const user = {
+        username: 'john',
+        password: 'password',
+        age: '24',
+      };
+
+      const response = await request(testHarness.getHttp())
+        .post('/user')
+        .send(user)
+        .set('Accept', 'application/json');
+
+      expect(response.status).toBe(201);
+      expect(response.body.ok).toBeTruthy();
+      expect(response.body.data.username).toEqual(user.username);
+      expect(response.body.data.password).toEqual(user.password);
+      expect(response.body.data.age).toEqual(user.age);
+    });
+  });
 });
