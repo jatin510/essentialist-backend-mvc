@@ -2,8 +2,8 @@ version: '3'
 services:
   nodejs-app:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../../..
+      dockerfile: config/docker/local/Dockerfile
     depends_on:
       - mongodb
     ports:
@@ -12,7 +12,7 @@ services:
       - MONGODB_URI=mongodb://mongodb:27017
       - SERVER_PORT=3000
     volumes:
-      - ./src:/app/src
+      - ../../../src:/app/src
     networks:
       - node-webapp-network
       
