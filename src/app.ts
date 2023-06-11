@@ -1,5 +1,7 @@
 import express from 'express';
-import { userRoute } from './route/user';
+import { userRoute } from './shared/infra/route/user';
+import { UserServiceImpl } from './modules/users/services/adapter/userService';
+import { createUserControllerFactory } from './shared/infra/controller';
 
 const app = express();
 
@@ -11,5 +13,9 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/user', userRoute);
+
+export const userService = new UserServiceImpl();
+
+export const createUserController = createUserControllerFactory(userService);
 
 export default app;

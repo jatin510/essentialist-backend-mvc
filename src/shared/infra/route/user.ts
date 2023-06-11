@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import { createUser, editUser } from '../controller';
+import { editUser } from '../controller';
 import { validateCreateUser, validateEditUser } from '../middleware/validators';
+import { createUserController } from '../../../app';
 
 export const userRoute = Router();
 
-userRoute.post('/', validateCreateUser, createUser);
+userRoute.post('/', validateCreateUser, (req, res) => {
+  createUserController(req, res);
+});
 userRoute.put('/', validateEditUser, editUser);
