@@ -1,7 +1,10 @@
 import express from 'express';
 import { userRoute } from './shared/infra/route/user';
 import { UserServiceImpl } from './modules/users/services/adapter/userService';
-import { createUserControllerFactory } from './shared/infra/controller';
+import {
+  createUserControllerFactory,
+  editUserControllerFactory,
+} from './shared/infra/controller';
 
 const app = express();
 
@@ -17,5 +20,6 @@ app.use('/user', userRoute);
 export const userService = new UserServiceImpl();
 
 export const createUserController = createUserControllerFactory(userService);
+export const editUserController = editUserControllerFactory(userService);
 
 export default app;
